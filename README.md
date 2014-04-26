@@ -10,14 +10,17 @@ go install gitli.corp.linkedin.com/secsre/pyfmt
 
 # Usage
 
+## `Sprintf` accepts a `map[string]string`:
+
 ```Go
 dict := make(map[string]string)
 dict["name"] = "John"
-dict["age"] = "99
-foo := pyfmt.Sprintf("Hello {name}, are you really {age} years old?", dict)
+dict["age"] = "99"
+actual := pyfmt.Sprintf("Hello {name}, are you really {age} years old?", dict)
 ```
 
-# Limitations
+## `Sprintf` accepts multiple arguments:
 
- * does not allow embedded curly braces
- * does not allow escaped { or }
+```Go
+actual := Sprintf("-->{0}*{1}<--", 3.5, "silly", "ignored")
+```
