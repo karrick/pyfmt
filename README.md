@@ -5,7 +5,7 @@ python style formatter
 # Installation
 
 ```bash
-go install gitli.corp.linkedin.com/secsre/pyfmt
+go install github.com/karrick/pyfmt
 ```
 
 # Usage
