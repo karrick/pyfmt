@@ -22,37 +22,37 @@ func Sprintf(format string, a ...interface{}) string {
 }
 
 func form(format string, dict map[string]string) string {
-	var buf, tok bytes.Buffer
+	var buf, token bytes.Buffer
 	var capture bool
 	for _, rune := range format {
 		switch capture {
-		case true:
-			if unicode.IsDigit(rune) || unicode.IsLetter(rune) || rune == '_' {
-				tok.WriteRune(rune)
-			} else {
-				token := tok.String()
-				val, ok := dict[token]
-				if rune == '}' && ok {
-					buf.WriteString(val)
-				} else {
-					buf.WriteRune('{')
-					buf.WriteString(token)
-					buf.WriteRune(rune)
-				}
-				tok.Reset()
-				capture = false // done with capture
-			}
 		case false:
 			if rune == '{' {
 				capture = true
 			} else {
 				buf.WriteRune(rune)
 			}
+		case true:
+			if unicode.IsLetter(rune) || unicode.IsDigit(rune) || rune == '_' {
+				token.WriteRune(rune)
+			} else {
+				tok := token.String()
+				val, ok := dict[tok]
+				if rune == '}' && ok {
+					buf.WriteString(val)
+				} else {
+					buf.WriteRune('{')
+					buf.WriteString(tok)
+					buf.WriteRune(rune)
+				}
+				token.Reset()
+				capture = false // done with capture
+			}
 		}
 	}
 	if capture {
 		buf.WriteRune('{')
-		buf.Write(tok.Bytes())
+		buf.Write(token.Bytes())
 	}
 	return buf.String()
 }
