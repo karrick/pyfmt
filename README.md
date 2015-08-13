@@ -1,6 +1,9 @@
 # pyfmt
 
-python style formatter
+python style formatter for the go programming language
+
+Why would you need such a thing? You probably don't. But I did once,
+so I created this in case anyone else one day needed it.
 
 # Installation
 
